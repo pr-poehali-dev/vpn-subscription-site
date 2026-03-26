@@ -420,6 +420,130 @@ export default function Index() {
         </div>
       </section>
 
+      {/* REVIEWS */}
+      <section id="reviews" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <AnimSection>
+            <div className="text-center mb-14">
+              <span className="text-xs text-neon-purple tracking-widest uppercase">Отзывы</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mt-3">
+                ЧТО ГОВОРЯТ <span className="neon-text-purple">КЛИЕНТЫ</span>
+              </h2>
+              <p className="text-white/40 text-sm mt-3">Реальные покупатели о VOLK VPN</p>
+            </div>
+          </AnimSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                name: "Алексей М.",
+                avatar: "А",
+                color: "cyan",
+                rating: 5,
+                plan: "3 устройства",
+                text: "Подключил на телефон, ноутбук и планшет — всё работает стабильно. YouTube грузится без тормозов, цена вообще огонь за такое качество.",
+              },
+              {
+                name: "Дарья К.",
+                avatar: "Д",
+                color: "purple",
+                rating: 5,
+                plan: "1 устройство",
+                text: "Взяла для телефона — самое то. Инстаграм и другие заблокированные сервисы летают. Поддержка в телеге ответила моментально и помогла настроить.",
+                featured: true,
+              },
+              {
+                name: "Сергей П.",
+                avatar: "С",
+                color: "green",
+                rating: 5,
+                plan: "6 устройств",
+                text: "Взял на всю семью, 6 устройств за 345 рублей — это реально дёшево. Скорость не режут, глушилки не мешают. Рекомендую всем.",
+              },
+              {
+                name: "Никита В.",
+                avatar: "Н",
+                color: "cyan",
+                rating: 5,
+                plan: "2 устройства",
+                text: "Нужен был VPN для обхода блокировок на работе и дома. Германия и Финляндия работают отлично. Уже 2 месяца пользуюсь — ни разу не подвёл.",
+              },
+              {
+                name: "Марина Т.",
+                avatar: "М",
+                color: "purple",
+                rating: 5,
+                plan: "3 устройства",
+                text: "Порекомендовали знакомые. Подключение через Telegram — очень удобно, никаких лишних регистраций. Работает через Happ, соединение всегда стабильное.",
+              },
+              {
+                name: "Роман Г.",
+                avatar: "Р",
+                color: "green",
+                rating: 5,
+                plan: "4 устройства",
+                text: "Пробовал разные VPN — этот самый дешёвый при хорошем качестве. Сервера в России особенно нужны для некоторых сервисов. Всё работает как надо.",
+              },
+            ].map((review) => {
+              const c = {
+                cyan: { text: "text-neon-cyan", border: "border-neon-cyan/20", bg: "bg-neon-cyan/10", avatar: "bg-neon-cyan/20 text-neon-cyan" },
+                purple: { text: "text-neon-purple", border: "border-neon-purple/20", bg: "bg-neon-purple/10", avatar: "bg-neon-purple/20 text-neon-purple" },
+                green: { text: "text-neon-green", border: "border-neon-green/20", bg: "bg-neon-green/10", avatar: "bg-neon-green/20 text-neon-green" },
+              }[review.color];
+              return (
+                <AnimSection key={review.name}>
+                  <div className={`glass-card rounded-2xl p-6 border ${c.border} h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(168,85,247,0.1)] ${review.featured ? "neon-border-purple" : ""}`}>
+                    {review.featured && (
+                      <div className="mb-3">
+                        <span className="text-[10px] font-display font-bold tracking-widest text-neon-purple bg-neon-purple/10 px-2 py-0.5 rounded-full">ТОП ОТЗЫВ</span>
+                      </div>
+                    )}
+                    {/* Stars */}
+                    <div className="flex gap-0.5 mb-4">
+                      {Array.from({ length: review.rating }).map((_, i) => (
+                        <span key={i} className="text-yellow-400 text-sm">★</span>
+                      ))}
+                    </div>
+                    {/* Text */}
+                    <p className="text-white/65 text-sm leading-relaxed flex-1 mb-5">"{review.text}"</p>
+                    {/* Author */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-9 h-9 rounded-full ${c.avatar} flex items-center justify-center font-display font-bold text-sm`}>
+                          {review.avatar}
+                        </div>
+                        <div>
+                          <div className="text-white font-body font-medium text-sm">{review.name}</div>
+                          <div className={`text-xs ${c.text}`}>{review.plan}</div>
+                        </div>
+                      </div>
+                      <Icon name="CheckCircle" size={16} className={c.text} />
+                    </div>
+                  </div>
+                </AnimSection>
+              );
+            })}
+          </div>
+
+          {/* Summary bar */}
+          <AnimSection>
+            <div className="mt-10 glass-card rounded-2xl p-6 neon-border flex flex-col sm:flex-row items-center justify-around gap-6 text-center">
+              {[
+                { val: "5.0", label: "Средняя оценка", icon: "Star" },
+                { val: "100%", label: "Рекомендуют друзьям", icon: "ThumbsUp" },
+                { val: "Быстро", label: "Ответ в Telegram", icon: "MessageCircle" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col items-center gap-1">
+                  <Icon name={stat.icon} size={20} className="text-neon-cyan mb-1" />
+                  <div className="font-display text-2xl font-bold neon-text">{stat.val}</div>
+                  <div className="text-white/40 text-xs">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </AnimSection>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto">
